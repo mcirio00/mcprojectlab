@@ -1,16 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MC Project Lab</title>
-</head>
-<body>
-  <h1>MC Project Lab</h1>
-  <p>Hub progetti</p>
 
-  <ul>
-    <li><a href="https://mcirio00.github.io/Orbis/">Orbis Intelligence</a></li>
-    <li><a href="https://mcirio00.github.io/osservatorioenergia/">Osservatorio Energia</a></li>
-  </ul>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0f172a;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 80px 20px 40px;
+      background: #1e3a8a;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #cbd5e1;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .section {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .card {
+      background: #1e293b;
+      padding: 25px;
+      border-radius: 14px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      background: #334155;
+    }
+
+    a {
+      text-decoration: none;
+      color: #93c5fd;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #64748b;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>MC Project Lab</h1>
+  <p>Hub indipendente di progetti digitali, analisi e sistemi basati su AI, sicurezza e informazione.</p>
+</header>
+
+<section class="section">
+  <h2>Progetti</h2>
+
+  <div class="projects">
+
+    <div class="card">
+      <h3>Orbis Intelligence</h3>
+      <p>Analisi indipendente su referendum, scenari pubblici e informazione.</p>
+      <a href="https://mcirio00.github.io/Orbis/" target="_blank">Apri progetto →</a>
+    </div>
+
+    <div class="card">
+      <h3>Osservatorio Energia</h3>
+      <p>Monitoraggio, analisi e confronto sui temi energetici.</p>
+      <a href="https://mcirio00.github.io/osservatorioenergia/" target="_blank">Apri progetto →</a>
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  MC Project Lab © 2026
+</footer>
 
 </body>
 </html>
