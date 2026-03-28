@@ -1,111 +1,741 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MC Project Lab</title>
-  <meta property="og:title" content="MC Project Lab — Hub AI e Risk Intelligence">
-<meta property="og:description" content="MC Project Lab è un hub indipendente dedicato a Intelligenza Artificiale, analisi e risk intelligence, con progetti concreti, modelli operativi e strumenti applicabili.">
-<meta property="og:image" content="https://mcirio00.github.io/mcprojectlab/preview.jpeg">
-<meta property="og:url" content="https://mcirio00.github.io/mcprojectlab/">
-<meta property="og:type" content="website">
-
+  <meta name="description" content="MC Project Lab: hub indipendente per progetti AI, risk intelligence, analisi dei processi e piattaforme digitali." />
   <style>
+    :root {
+      --bg: #081120;
+      --bg-soft: #0f1b2e;
+      --card: rgba(18, 31, 52, 0.92);
+      --stroke: rgba(148, 163, 184, 0.22);
+      --text: #e5eefc;
+      --muted: #98a8c2;
+      --primary: #3b82f6;
+      --primary-2: #60a5fa;
+      --accent: #22c55e;
+      --danger: #f59e0b;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
+      --radius: 18px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f172a;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(59,130,246,0.16), transparent 32%),
+        radial-gradient(circle at top left, rgba(34,197,94,0.10), transparent 25%),
+        linear-gradient(180deg, #07101d 0%, #0b1627 40%, #09111f 100%);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
+      background: rgba(6, 12, 22, 0.78);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 72px;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .brand-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      font-weight: 700;
+      box-shadow: var(--shadow);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 400;
+      margin-top: 1px;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    nav a:hover { color: var(--text); }
+
+    .hero {
+      padding: 80px 0 54px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-panel,
+    .glass,
+    .card,
+    .mini-card,
+    .contact-box,
+    .cta-box {
+      background: var(--card);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-panel {
+      padding: 34px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: #d8e6ff;
+      border: 1px solid rgba(96, 165, 250, 0.22);
+      background: rgba(59, 130, 246, 0.12);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 58px);
+      line-height: 1.04;
+      margin: 0 0 16px;
+      letter-spacing: -1.2px;
+    }
+
+    .hero p.lead {
+      margin: 0 0 28px;
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 740px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      padding: 14px 18px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      transition: transform 0.16s ease, opacity 0.16s ease, background 0.16s ease;
+    }
+
+    .btn:hover { transform: translateY(-1px); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
       color: white;
     }
 
-    header {
-      text-align: center;
-      padding: 80px 20px 40px;
-      background: #1e3a8a;
+    .btn-secondary {
+      background: rgba(148, 163, 184, 0.10);
+      color: var(--text);
+      border: 1px solid rgba(148, 163, 184, 0.18);
     }
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      color: #cbd5e1;
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .section {
-      padding: 50px 20px;
-      text-align: center;
-    }
-
-    .projects {
+    .stat-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      padding: 20px;
-      max-width: 1000px;
-      margin: auto;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .mini-card {
+      padding: 16px;
+    }
+
+    .mini-card strong {
+      display: block;
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .mini-card span {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      gap: 16px;
+      align-content: start;
+    }
+
+    .status-box {
+      padding: 18px;
+      background: rgba(15, 23, 42, 0.65);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+      border-radius: 16px;
+    }
+
+    .status-box h3,
+    .section-head h2,
+    .card h3,
+    .contact-box h2,
+    .cta-box h2 {
+      margin: 0 0 10px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .status-item {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(96, 165, 250, 0.14);
+    }
+
+    .status-item b {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 18px;
+    }
+
+    section {
+      padding: 20px 0 14px;
+    }
+
+    .section-head {
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      margin: 0;
+      max-width: 800px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
     }
 
     .card {
-      background: #1e293b;
-      padding: 25px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.10);
+      border: 1px solid rgba(34, 197, 94, 0.22);
+      color: #d5f8df;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .pill.alt {
+      background: rgba(245, 158, 11, 0.09);
+      border-color: rgba(245, 158, 11, 0.22);
+      color: #ffefc7;
+    }
+
+    .card ul {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .card li { margin: 8px 0; }
+
+    .feature-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .feature-item {
+      padding: 16px;
       border-radius: 14px;
-      transition: 0.3s;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(148, 163, 184, 0.12);
     }
 
-    .card:hover {
-      transform: translateY(-5px);
-      background: #334155;
+    .feature-item strong {
+      display: block;
+      margin-bottom: 6px;
     }
 
-    a {
-      text-decoration: none;
-      color: #93c5fd;
-      font-weight: bold;
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
     }
+
+    .step {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(17, 24, 39, 0.72);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    .step span {
+      display: inline-grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .contact-box,
+    .cta-box {
+      padding: 28px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .info-line {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.10);
+      color: var(--muted);
+    }
+
+    .info-line:last-child { border-bottom: none; }
 
     footer {
-      text-align: center;
-      padding: 30px;
-      color: #64748b;
+      padding: 38px 0 60px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(148, 163, 184, 0.10);
+      padding-top: 24px;
+      margin-top: 16px;
+    }
+
+    @media (max-width: 1024px) {
+      .hero-grid,
+      .grid-3,
+      .grid-2,
+      .process,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stat-row,
+      .status-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { width: min(var(--max), calc(100% - 20px)); }
+      .hero { padding-top: 34px; }
+      .hero-panel,
+      .hero-side,
+      .card,
+      .contact-box,
+      .cta-box { padding: 20px; }
+      .stat-row,
+      .status-grid { grid-template-columns: 1fr; }
+      nav { display: none; }
+      .topbar-inner { min-height: 64px; }
+      .hero p.lead { font-size: 16px; }
     }
   </style>
 </head>
-
 <body>
-
-<header>
-  <h1>MC Project Lab</h1>
-  <p>Hub indipendente di progetti digitali, analisi e sistemi basati su AI, sicurezza e informazione.</p>
-</header>
-
-<section class="section">
-  <h2>Progetti</h2>
-
-  <div class="projects">
-
-    <div class="card">
-      <h3>Orbis Intelligence</h3>
-      <p>Analisi indipendente su referendum, scenari pubblici e informazione.</p>
-      <a href="https://mcirio00.github.io/Orbis/" target="_blank">Apri progetto →</a>
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="#home">
+        <div class="brand-mark">MC</div>
+        <div>
+          MC Project Lab
+          <small>Hub AI e Risk Intelligence</small>
+        </div>
+      </a>
+      <nav>
+        <a href="#progetti">Progetti</a>
+        <a href="#servizi">Aree</a>
+        <a href="#metodo">Metodo</a>
+        <a href="#controltower">Control Tower</a>
+        <a href="#contatti">Contatti</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="card">
-      <h3>Osservatorio Energia</h3>
-      <p>Monitoraggio, analisi e confronto sui temi energetici.</p>
-      <a href="https://osservatorioenergia.com" target="_blank">Apri progetto →</a>
+  <main id="home">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-panel">
+          <div class="eyebrow">Piattaforma indipendente per progetti ad alto valore operativo</div>
+          <h1>Analisi dei processi, AI applicata e sistemi decisionali</h1>
+          <p class="lead">
+            MC Project Lab è un hub progettuale dedicato a soluzioni concrete in ambito AI, processi aziendali, risk intelligence e piattaforme digitali. Dall’idea all’MVP, con un approccio orientato a controllo, utilità operativa e sostenibilità.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#progetti">Esplora i progetti</a>
+            <a class="btn btn-secondary" href="#contatti">Richiedi un confronto</a>
+          </div>
+          <div class="stat-row">
+            <div class="mini-card">
+              <strong>AI + processi</strong>
+              <span>Analisi AS IS, anomalie, ridisegno TO BE</span>
+            </div>
+            <div class="mini-card">
+              <strong>Risk intelligence</strong>
+              <span>Osservazione, classificazione, supporto decisionale</span>
+            </div>
+            <div class="mini-card">
+              <strong>MVP concreti</strong>
+              <span>Prototipi, dashboard, automazioni e workflow</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="hero-side glass">
+          <div class="status-box">
+            <h3>Focus attuale</h3>
+            <p class="muted">Progetti e linee di sviluppo su cui è concentrato il laboratorio.</p>
+            <div class="status-grid">
+              <div class="status-item">
+                <b>Control Tower</b>
+                <small class="muted">Orchestrazione, dashboard e agenti</small>
+              </div>
+              <div class="status-item">
+                <b>AOI</b>
+                <small class="muted">Analisi e integrazione AI nei processi</small>
+              </div>
+              <div class="status-item">
+                <b>Orbis</b>
+                <small class="muted">Scenario analysis e risk intelligence</small>
+              </div>
+              <div class="status-item">
+                <b>LEXGO</b>
+                <small class="muted">AI + anonimizzazione + controllo locale</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="status-box">
+            <h3>Approccio</h3>
+            <p class="muted">Ogni progetto nasce da un problema reale, passa per una verifica di fattibilità tecnica e viene sviluppato per step chiari e misurabili.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="progetti">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Progetti principali</h2>
+            <p>Una selezione delle iniziative incubate o in evoluzione all’interno di MC Project Lab.</p>
+          </div>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <div class="pill">AI Operations</div>
+            <h3>AOI</h3>
+            <p class="muted">Analisi e riprogettazione dei processi aziendali con integrazione AI, automazioni e governance umana.</p>
+            <ul>
+              <li>Audit dei processi reali</li>
+              <li>Ridisegno AS IS verso TO BE</li>
+              <li>Controllo KPI e decision support</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="pill alt">Risk Intelligence</div>
+            <h3>Orbis Intelligence</h3>
+            <p class="muted">Analisi strutturate, scenari, osservatori tematici e modelli decisionali per contesti complessi.</p>
+            <ul>
+              <li>Analisi geopolitiche e tematiche</li>
+              <li>Framework neutrale e ripetibile</li>
+              <li>Focus su rischi, impatti e scenari</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="pill">Platform</div>
+            <h3>AI Control Tower</h3>
+            <p class="muted">Sistema per orchestrare idee, task, agenti, workflow e dashboard in un’unica logica operativa.</p>
+            <ul>
+              <li>Ingestion di idee e progetti</li>
+              <li>Pianificazione, alert e raccomandazioni</li>
+              <li>Stack orientato a n8n, dashboard e agenti</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="pill">Energy</div>
+            <h3>Osservatorio Energia</h3>
+            <p class="muted">Piattaforma informativa e analitica su energia, mercati, bollette, carburanti e contesto internazionale.</p>
+            <ul>
+              <li>Notizie e indicatori principali</li>
+              <li>Analisi bollette e offerte</li>
+              <li>Contenuti orientati a chiarezza e utilità</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="pill alt">Privacy by Design</div>
+            <h3>LEXGO</h3>
+            <p class="muted">Modello AI con anonimizzazione locale e controllo umano per trattare dati sensibili in modo più prudente.</p>
+            <ul>
+              <li>Mascheramento dati prima dell’AI</li>
+              <li>Workflow controllati</li>
+              <li>Applicazioni in ambiti sensibili</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="pill">Lab</div>
+            <h3>Progetti incubati</h3>
+            <p class="muted">Spazio per MVP verticali, piattaforme civiche, edtech, cyber AI e servizi ad alto impatto operativo.</p>
+            <ul>
+              <li>Dalla scheda iniziale al pilot</li>
+              <li>Selezione e metodo prima del funding</li>
+              <li>Fattibilità tecnica come primo filtro</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="servizi">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Aree di lavoro</h2>
+            <p>Le direttrici principali su cui si sviluppano i progetti e le applicazioni del laboratorio.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <div class="card">
+            <h3>Analisi dei processi</h3>
+            <div class="feature-list">
+              <div class="feature-item">
+                <strong>Mappatura AS IS</strong>
+                <div class="muted">Lettura del processo reale, dei colli di bottiglia e delle inefficienze operative.</div>
+              </div>
+              <div class="feature-item">
+                <strong>Rilevazione anomalie</strong>
+                <div class="muted">Individuazione di ritardi, sequenze errate, approvazioni mancanti, duplicazioni e deviazioni.</div>
+              </div>
+              <div class="feature-item">
+                <strong>Ridisegno TO BE</strong>
+                <div class="muted">Definizione di un modello operativo più chiaro, misurabile e integrabile con AI e automazioni.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h3>AI e sistemi decisionali</h3>
+            <div class="feature-list">
+              <div class="feature-item">
+                <strong>Agenti e workflow</strong>
+                <div class="muted">Utilizzo di agenti, orchestrazione e automazioni per task, dashboard e output strutturati.</div>
+              </div>
+              <div class="feature-item">
+                <strong>Dashboard operative</strong>
+                <div class="muted">Visibilità su eventi, criticità, KPI, priorità e azioni consigliate.</div>
+              </div>
+              <div class="feature-item">
+                <strong>Human in the loop</strong>
+                <div class="muted">Controllo umano sulle decisioni più sensibili, sulle anomalie critiche e sulle azioni finali.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodo">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Metodo</h2>
+            <p>Un percorso pensato per trasformare un problema o un’idea in un MVP realmente utile.</p>
+          </div>
+        </div>
+        <div class="process">
+          <div class="step">
+            <span>1</span>
+            <h3>Analisi</h3>
+            <p class="muted">Definizione del contesto, dei vincoli, degli attori, dei dati disponibili e dei casi d’uso prioritari.</p>
+          </div>
+          <div class="step">
+            <span>2</span>
+            <h3>Fattibilità</h3>
+            <p class="muted">Verifica tecnica iniziale su stack, integrazioni, dipendenze esterne, rischi e alternative.</p>
+          </div>
+          <div class="step">
+            <span>3</span>
+            <h3>MVP</h3>
+            <p class="muted">Sviluppo di una prima versione chiara, dimostrabile e orientata a validare utilità e funzionamento.</p>
+          </div>
+          <div class="step">
+            <span>4</span>
+            <h3>Evoluzione</h3>
+            <p class="muted">Dashboard, workflow, alert, documentazione e progressione verso una piattaforma più strutturata.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="controltower">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <h2>Focus operativo — AI Control Tower</h2>
+            <p>Una delle linee centrali del laboratorio è la costruzione di una Control Tower capace di osservare eventi, analizzare criticità, classificare anomalie e supportare decisioni.</p>
+          </div>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <div class="pill">Control Tower Light</div>
+            <h3>MVP rapido e dimostrativo</h3>
+            <p class="muted">Versione orientata a demo, proof of concept e primi casi d’uso in ambito processi aziendali.</p>
+            <ul>
+              <li>Input da file, webhook o workflow</li>
+              <li>Classificazione eventi e anomalie</li>
+              <li>Output tabellari, report e dashboard base</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <div class="pill alt">Control Tower estesa</div>
+            <h3>Architettura più evoluta</h3>
+            <p class="muted">Versione pensata per integrare orchestrazione, agenti, KPI, calendario condiviso, alert e supporto alle decisioni multi-progetto.</p>
+            <ul>
+              <li>Agent registry e workflow condivisi</li>
+              <li>Trigger, notifiche e raccomandazioni</li>
+              <li>Visione unificata su attività e criticità</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti">
+      <div class="wrap contact-grid">
+        <div class="contact-box">
+          <h2>Contatti</h2>
+          <p class="muted">Per collaborazioni, confronto su progetti, audit iniziali o sviluppo di MVP.</p>
+          <div class="info-line">
+            <span>Email</span>
+            <strong>info@mcprojectlab.com</strong>
+          </div>
+          <div class="info-line">
+            <span>Ambiti</span>
+            <strong>AI, processi, risk intelligence</strong>
+          </div>
+          <div class="info-line">
+            <span>Approccio</span>
+            <strong>Indipendente e orientato al valore</strong>
+          </div>
+        </div>
+
+        <div class="cta-box">
+          <h2>Vuoi partire da un caso concreto</h2>
+          <p class="muted">Il punto di ingresso più utile è quasi sempre un processo reale o un problema operativo specifico. Da lì si può costruire una verifica di fattibilità e un primo MVP.</p>
+          <div class="actions" style="margin: 20px 0 0;">
+            <a class="btn btn-primary" href="mailto:info@mcprojectlab.com?subject=Richiesta%20contatto%20MC%20Project%20Lab">Scrivi ora</a>
+            <a class="btn btn-secondary" href="#home">Torna su</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-line">
+      <div>© 2026 MC Project Lab</div>
+      <div>Hub AI e Risk Intelligence</div>
     </div>
-
-  </div>
-
-</section>
-
-<footer>
-  MC Project Lab © 2026
-</footer>
-
+  </footer>
 </body>
 </html>
+
+
